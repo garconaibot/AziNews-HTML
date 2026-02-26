@@ -107,7 +107,7 @@
             background: #161b22;
             border: 1px solid #30363d;
             border-radius: 12px;
-            padding: 20px;
+            overflow: hidden;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -118,7 +118,17 @@
 
         .news-card.expanded {
             border-color: #58a6ff;
-            cursor: default;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #21262d;
+        }
+
+        .news-body {
+            padding: 20px;
         }
 
         .news-source {
@@ -310,7 +320,6 @@
     </footer>
 
     <script>
-        // Data și Oră
         function updateDateTime() {
             const now = new Date();
             const days = ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'];
@@ -323,35 +332,25 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
-        // Vreme
         fetch('https://api.open-meteo.com/v1/forecast?latitude=44.43&longitude=26.10&current_weather=true')
             .then(r => r.json())
-            .then(d => {
-                document.getElementById('weather').textContent = d.current_weather.temperature + '°C';
-            })
+            .then(d => { document.getElementById('weather').textContent = d.current_weather.temperature + '°C'; })
             .catch(() => {});
 
-        // Curs
         fetch('https://api.frankfurter.app/latest?from=EUR&to=RON')
             .then(r => r.json())
-            .then(d => {
-                document.getElementById('eur').textContent = '€ ' + d.rates.RON;
-            })
+            .then(d => { document.getElementById('eur').textContent = '€ ' + d.rates.RON; })
             .catch(() => {});
         
         fetch('https://api.frankfurter.app/latest?from=USD&to=RON')
             .then(r => r.json())
-            .then(d => {
-                document.getElementById('usd').textContent = d.rates.RON;
-            })
+            .then(d => { document.getElementById('usd').textContent = d.rates.RON; })
             .catch(() => {});
 
-        // Radio volume
         const audio = document.getElementById('radioPlayer');
         audio.volume = 0.15;
         audio.addEventListener('play', () => setTimeout(() => audio.volume = 0.15, 100));
 
-        // Horoscop
         const horoscope = [
             { sign: 'Berbac', msg: 'Energie maximă' },
             { sign: 'Taur', msg: 'Zi de relaxare' },
@@ -376,25 +375,20 @@
             `;
         });
 
-        // Știri cu expand
         const news = [
-            { source: 'Digi24', title: 'Ultimele știri din România - EVENIMENT', content: 'Detalii complete despre evenimentele recente din România. Rămâneți conectați pentru actualizări live.', time: 'Acum' },
-            { source: 'Digi24', title: 'Poliția Română recomandă vigilență sporită', content: 'Autoritățile le recomandă cetățenilor să fie atenți și să raporteze orice activitate suspectă.', time: 'Acum' },
-            { source: 'Mediafax', title: 'Se anunță modificări importante în legislație', content: 'Parlamentul dezbate noi proiecte de lege care ar putea afecta milioane de români.', time: 'Acum' },
-            { source: 'Digi24', title: 'Vremea se schimbă radical în România', content: 'Meteorologii anunță o răcire bruscă a vremii în următoarele zile. Recomandăm să vă pregătiți pentru temperaturi scăzute.', time: 'Acum' },
-            { source: 'Digi24', title: 'Transportul public din București - actualizări', content: 'STB anunță modificări în programul de circulație pentru mai multe linii de autobuz și tramvai.', time: 'Acum' },
-            { source: 'Mediafax', title: 'Economie: cursul valutar azi', content: 'Euro și dolarul înregistrează fluctuații minime astăzi pe piața valutară românească.', time: 'Acum' },
-            { source: 'Digi24', title: 'Activități culturale în weekend', content: 'Teatrele și muzeele din România oferă evenimente speciale pentru weekendul acesta.', time: 'Acum' },
-            { source: 'Digi24', title: 'Sfaturi pentru șoferi în condiții de trafic', content: 'Poliția rutieră recomandă șoferilor să fie atenți la condus, mai ales în traficul intens.', time: 'Acum' }
+            { source: 'Digi24', title: 'Ultimele știri din România - EVENIMENT', image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=200&fit=crop', content: 'Detalii complete despre evenimentele recente din România. Rămâneți conectați pentru actualizări live.', time: 'Acum' },
+            { source: 'Digi24', title: 'Poliția Română recomandă vigilență sporită', image: 'https://images.unsplash.com/photo-1589953367933-9e1d7d5c2e6e?w=400&h=200&fit=crop', content: 'Autoritățile le recomandă cetățenilor să fie atenți și să raporteze orice activitate suspectă.', time: 'Acum' },
+            { source: 'Mediafax', title: 'Se anunță modificări importante în legislație', image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400&h=200&fit=crop', content: 'Parlamentul dezbate noi proiecte de lege care ar putea afecta milioane de români.', time: 'Acum' },
+            { source: 'Digi24', title: 'Vremea se schimbă radical în România', image: 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=400&h=200&fit=crop', content: 'Meteorologii anunță o răcire bruscă a vremii în următoarele zile. Recomandăm să vă pregătiți pentru temperaturi scăzute.', time: 'Acum' },
+            { source: 'Digi24', title: 'Transportul public din București - actualizări', image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=200&fit=crop', content: 'STB anunță modificări în programul de circulație pentru mai multe linii de autobuz și tramvaie.', time: 'Acum' },
+            { source: 'Mediafax', title: 'Economie: cursul valutar azi', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop', content: 'Euro și dolarul înregistrează fluctuații minime astăzi pe piața valutară românească.', time: 'Acum' },
+            { source: 'Digi24', title: 'Activități culturale în weekend', image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=200&fit=crop', content: 'Teatrele și muzeele din România oferă evenimente speciale pentru weekendul acesta.', time: 'Acum' },
+            { source: 'Digi24', title: 'Sfaturi pentru șoferi în condiții de trafic', image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=200&fit=crop', content: 'Poliția rutieră recomandă șoferilor să fie atenți la condus, mai ales în traficul intens.', time: 'Acum' }
         ];
 
         function toggleNews(card) {
             const wasExpanded = card.classList.contains('expanded');
-            
-            // Close all
             document.querySelectorAll('.news-card').forEach(c => c.classList.remove('expanded'));
-            
-            // Toggle clicked
             if (!wasExpanded) {
                 card.classList.add('expanded');
             }
@@ -403,11 +397,14 @@
         news.forEach(n => {
             document.getElementById('newsGrid').innerHTML += `
                 <div class="news-card" onclick="toggleNews(this)">
-                    <div class="news-source">${n.source}</div>
-                    <div class="news-title">${n.title}</div>
-                    <div class="news-time">${n.time}</div>
-                    <div class="news-content">${n.content}</div>
-                    <div class="news-expand-hint">Click pentru detalii...</div>
+                    <img src="${n.image}" alt="${n.title}" class="news-image" onerror="this.style.display='none'">
+                    <div class="news-body">
+                        <div class="news-source">${n.source}</div>
+                        <div class="news-title">${n.title}</div>
+                        <div class="news-time">${n.time}</div>
+                        <div class="news-content">${n.content}</div>
+                        <div class="news-expand-hint">Click pentru detalii...</div>
+                    </div>
                 </div>
             `;
         });
