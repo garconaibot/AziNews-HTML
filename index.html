@@ -25,7 +25,6 @@
             padding: 20px;
         }
 
-        /* Header */
         header {
             text-align: center;
             padding: 30px 20px;
@@ -49,7 +48,6 @@
             font-size: 1rem;
         }
 
-        /* Info Cards */
         .info-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -87,7 +85,6 @@
             color: #8b949e;
         }
 
-        /* Sections */
         .section {
             margin-bottom: 40px;
         }
@@ -100,7 +97,6 @@
             border-bottom: 1px solid #30363d;
         }
 
-        /* News Grid */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -138,7 +134,6 @@
             font-size: 0.8rem;
         }
 
-        /* Horoscope */
         .horoscope-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -164,7 +159,6 @@
             font-size: 0.85rem;
         }
 
-        /* Radio */
         .radio-section {
             background: #161b22;
             border: 1px solid #30363d;
@@ -184,7 +178,6 @@
             max-width: 400px;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -228,7 +221,6 @@
     </header>
 
     <div class="container">
-        <!-- Info Rapide -->
         <div class="info-cards">
             <div class="card">
                 <div class="card-icon">☀️</div>
@@ -258,7 +250,6 @@
             </div>
         </div>
 
-        <!-- Radio -->
         <div class="section">
             <h2>📻 Radio Live</h2>
             <div class="radio-section">
@@ -269,38 +260,14 @@
             </div>
         </div>
 
-        <!-- Știri -->
         <div class="section">
             <h2>📰 Știri din România</h2>
-            <div class="news-grid" id="newsGrid">
-                <div class="news-card">
-                    <div class="news-source">Digi24</div>
-                    <div class="news-title">Se încarcă știrile...</div>
-                    <div class="news-time">Acum</div>
-                </div>
-                <div class="news-card">
-                    <div class="news-source">Digi24</div>
-                    <div class="news-title">Se încarcă știrile...</div>
-                    <div class="news-time">Acum</div>
-                </div>
-                <div class="news-card">
-                    <div class="news-source">Digi24</div>
-                    <div class="news-title">Se încarcă știrile...</div>
-                    <div class="news-time">Acum</div>
-                </div>
-                <div class="news-card">
-                    <div class="news-source">Mediafax</div>
-                    <div class="news-title">Se încarcă știrile...</div>
-                    <div class="news-time">Acum</div>
-                </div>
-            </div>
+            <div class="news-grid" id="newsGrid"></div>
         </div>
 
-        <!-- Horoscop -->
         <div class="section">
             <h2>🔮 Horoscop</h2>
-            <div class="horoscope-grid" id="horoscopeGrid">
-            </div>
+            <div class="horoscope-grid" id="horoscopeGrid"></div>
         </div>
     </div>
 
@@ -376,6 +343,28 @@
                 <div class="horoscope-item">
                     <div class="horoscope-sign">${h.sign}</div>
                     <div class="horoscope-msg">${h.msg}</div>
+                </div>
+            `;
+        });
+
+        // Știri (static - actualizat manual)
+        const news = [
+            { source: 'Digi24', title: 'Ultimele știri din România - EVENIMENT', time: 'Acum' },
+            { source: 'Digi24', title: 'Poliția Română recomandă vigilență sporită', time: 'Acum' },
+            { source: 'Mediafax', title: 'Se anunță modificări importante în legislație', time: 'Acum' },
+            { source: 'Digi24', title: 'Vremea se schimbă radical în România', time: 'Acum' },
+            { source: 'Digi24', title: 'Transportul public din București - actualizări', time: 'Acum' },
+            { source: 'Mediafax', title: 'Economie: cursul valutar azi', time: 'Acum' },
+            { source: 'Digi24', title: 'Activități culturale în weekend', time: 'Acum' },
+            { source: 'Digi24', title: 'Sfaturi pentru șoferi în condiții de trafic', time: 'Acum' }
+        ];
+
+        news.forEach(n => {
+            document.getElementById('newsGrid').innerHTML += `
+                <div class="news-card">
+                    <div class="news-source">${n.source}</div>
+                    <div class="news-title">${n.title}</div>
+                    <div class="news-time">${n.time}</div>
                 </div>
             `;
         });
